@@ -2,38 +2,225 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Miraz Digital Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f8fafc; }
-        .nav-card { transition: all 0.3s ease; border: 1px solid transparent; }
-        .nav-card.active { border-color: #01875f; background: #ecfdf5; color: #01875f; }
-        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f8fafc; -webkit-tap-highlight-color: transparent; }
+        
+        .nav-card { transition: all 0.3s ease; }
+        .nav-card.active { background: #01875f; color: white; box-shadow: 0 10px 15px -3px rgba(1, 135, 95, 0.3); }
+        
         .app-container { display: none; }
-        .app-container.active { display: block; animation: fadeIn 0.5s ease; }
+        .app-container.active { display: block; animation: fadeIn 0.4s ease; }
+        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* টেবিল স্টাইল */
+        .premium-table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: 15px; overflow: hidden; }
+        .premium-table th { background: #f1f5f9; padding: 12px 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
+        .premium-table td { padding: 10px 5px; border-bottom: 1px solid #f1f5f9; text-align: center; }
+        
+        .premium-input { 
+            width: 75px; background: #f8fafc; border: 1px solid #e2e8f0; 
+            border-radius: 8px; padding: 8px; text-align: center; font-weight: bold; font-size: 14px;
+            outline: none; transition: border-color 0.2s;
+        }
+        .premium-input:focus { border-color: #01875f; background: #fff; }
+
+        /* বয়সের তারিখ ইনপুট স্টাইল - হাতে লেখার উপযোগী */
+        input[type="date"] {
+            position: relative;
+            min-height: 50px;
+        }
     </style>
 </head>
-<body class="pb-20">
+<body class="pb-10">
 
-    <header class="glass-header sticky top-0 z-50 border-b border-gray-200">
-        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+    <header class="bg-white sticky top-0 z-50 border-b border-gray-200 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <div class="bg-green-600 text-white w-8 h-8 flex items-center justify-center rounded-lg font-bold">M</div>
-                <h1 class="text-xl font-bold tracking-tight text-gray-800">MIRAZ<span class="text-green-600 font-black">.PRO</span></h1>
+                <div class="bg-green-600 text-white w-9 h-9 flex items-center justify-center rounded-xl font-bold italic text-xl">M</div>
+                <h1 class="text-xl font-black tracking-tighter text-gray-800 italic">MIRAZ<span class="text-green-600">.PRO</span></h1>
             </div>
-            <span class="text-[10px] bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold uppercase tracking-widest">Digital Hub 2026</span>
+            <div class="flex flex-col items-end">
+                <span class="text-[9px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold uppercase">Health Pro V2.1</span>
+            </div>
         </div>
     </header>
 
-    <div class="max-w-4xl mx-auto px-4 mt-6 grid grid-cols-3 gap-2">
-        <button onclick="showApp('home')" id="btn-home" class="nav-card active p-3 rounded-2xl bg-white shadow-sm text-center">
-            <i class="fa-solid fa-house block mb-1"></i>
-            <span class="text-xs font-bold">হোম</span>
+    <div class="max-w-5xl mx-auto px-3 mt-6 grid grid-cols-3 gap-3">
+        <button onclick="showApp('home')" id="btn-home" class="nav-card active p-4 rounded-2xl bg-white shadow-sm text-center">
+            <i class="fa-solid fa-house-user block text-xl mb-1"></i>
+            <span class="text-[11px] font-bold">হোম</span>
         </button>
+        <button onclick="showApp('bmi')" id="btn-bmi" class="nav-card p-4 rounded-2xl bg-white shadow-sm text-center text-gray-400">
+            <i class="fa-solid fa-list-check block text-xl mb-1"></i>
+            <span class="text-[11px] font-bold">BMI Pro</span>
+        </button>
+        <button onclick="showApp('age')" id="btn-age" class="nav-card p-4 rounded-2xl bg-white shadow-sm text-center text-gray-400">
+            <i class="fa-solid fa-calendar-check block text-xl mb-1"></i>
+            <span class="text-[11px] font-bold">Age Cal</span>
+        </button>
+    </div>
+
+    <main class="max-w-5xl mx-auto px-3 mt-6">
+        
+        <div id="app-home" class="app-container active">
+            <div class="bg-white p-10 rounded-[30px] shadow-xl border border-gray-100 text-center">
+                <div class="relative w-28 h-28 mx-auto mb-6">
+                    <div class="absolute inset-0 bg-green-200 rounded-full animate-ping opacity-25"></div>
+                    <div class="relative w-28 h-28 bg-gradient-to-tr from-green-600 to-green-400 text-white rounded-full flex items-center justify-center text-5xl font-black shadow-lg">M</div>
+                </div>
+                <h2 class="text-3xl font-extrabold text-gray-800">স্বাগতম, আমি মিরাজ</h2>
+                <p class="text-gray-500 mt-3 text-sm leading-relaxed max-w-sm mx-auto">আমার ডিজিটাল প্রজেক্টগুলো এখানে এক্সপ্লোর করুন। আমি প্রযুক্তি এবং স্বাস্থ্য সচেতনতা নিয়ে কাজ করতে ভালোবাসি।</p>
+                
+                <div class="mt-10 grid grid-cols-2 gap-4">
+                    <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                        <h4 class="text-blue-700 font-bold text-lg">২৪+</h4>
+                        <p class="text-[10px] text-blue-500 font-bold uppercase">প্রজেক্ট সম্পন্ন</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-2xl border border-green-100">
+                        <h4 class="text-green-700 font-bold text-lg">১০০%</h4>
+                        <p class="text-[10px] text-green-500 font-bold uppercase">সঠিক ক্যালকুলেশন</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="app-bmi" class="app-container">
+            <div class="bg-white p-4 rounded-[25px] shadow-lg border border-gray-100">
+                <div class="flex items-center justify-between mb-4 px-2">
+                    <h3 class="font-black text-gray-800 text-lg uppercase"><i class="fa-solid fa-users-rays text-green-600 mr-2"></i>BMI Pro List</h3>
+                    <span class="text-[10px] bg-gray-100 px-2 py-1 rounded-lg font-bold text-gray-500">Decimal: 2 Points</span>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="premium-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="text-left">নাম</th>
+                                <th>ওজন (kg)</th>
+                                <th>উচ্চতা (cm)</th>
+                                <th>BMI</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bmiTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="app-age" class="app-container">
+            <div class="bg-white p-8 rounded-[30px] shadow-lg border border-gray-100 text-center">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mx-auto flex items-center justify-center mb-4 text-2xl shadow-inner">
+                    <i class="fa-solid fa-cake-candles"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">আপনার বয়স বের করুন</h3>
+                
+                <div class="text-left mb-6">
+                    <label class="text-[11px] font-bold text-gray-400 uppercase ml-2 mb-1 block">জন্ম তারিখ (হাতেও লিখতে পারেন)</label>
+                    <input type="date" id="dob" class="w-full p-4 bg-gray-50 rounded-2xl font-bold border-2 border-transparent focus:border-blue-500 outline-none transition uppercase">
+                </div>
+                
+                <button onclick="calcAge()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition transform active:scale-95">ক্যালকুলেট করুন</button>
+                
+                <div id="age-result" class="mt-8 hidden p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                    <p class="text-blue-700 font-bold text-lg" id="finalAgeText"></p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="mt-12 text-center pb-8">
+        <p class="text-[10px] text-gray-400 uppercase font-black tracking-widest mb-1">Powered By</p>
+        <h3 class="text-2xl font-black text-gray-800 italic tracking-tighter">MIRAZ<span class="text-green-600">.DIGITAL</span></h3>
+    </footer>
+
+    <script>
+        function showApp(appName) {
+            document.querySelectorAll('.app-container').forEach(app => app.classList.remove('active'));
+            document.querySelectorAll('.nav-card').forEach(btn => {
+                btn.classList.remove('active', 'bg-green-600', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-400');
+            });
+
+            document.getElementById('app-' + appName).classList.add('active');
+            const activeBtn = document.getElementById('btn-' + appName);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-gray-400');
+        }
+
+        // BMI টেবিল জেনারেশন
+        const tableBody = document.getElementById('bmiTableBody');
+        let rows = '';
+        for (let i = 1; i <= 60; i++) {
+            rows += `
+                <tr>
+                    <td class="text-[10px] font-bold text-gray-300">${i}</td>
+                    <td class="text-left text-xs font-bold text-gray-700">ব্যক্তি ${i}</td>
+                    <td><input type="number" id="w${i}" class="premium-input" oninput="calculateBMI(${i})" placeholder="0"></td>
+                    <td><input type="number" id="h${i}" class="premium-input" oninput="calculateBMI(${i})" placeholder="0"></td>
+                    <td class="font-black">
+                        <span id="r${i}" class="text-sm text-gray-800">-</span><br>
+                        <span id="s${i}" class="text-[8px] uppercase tracking-tighter"></span>
+                    </td>
+                </tr>`;
+        }
+        tableBody.innerHTML = rows;
+
+        function calculateBMI(i) {
+            const w = document.getElementById('w'+i).value;
+            const h = document.getElementById('h'+i).value;
+            const r = document.getElementById('r'+i);
+            const s = document.getElementById('s'+i);
+
+            if (w > 0 && h > 0) {
+                // এখানে .toFixed(2) ব্যবহার করা হয়েছে যাতে দশমিকের পর ২টি সংখ্যা আসে
+                const bmi = (w / ((h/100)*(h/100))).toFixed(2);
+                r.innerText = bmi;
+                if(bmi < 18.5) { s.innerText = "Underweight"; s.style.color = "#f39c12"; }
+                else if(bmi < 25) { s.innerText = "Normal"; s.style.color = "#27ae60"; }
+                else if(bmi < 30) { s.innerText = "Overweight"; s.style.color = "#e67e22"; }
+                else { s.innerText = "Obese"; s.style.color = "#c0392b"; }
+            } else {
+                r.innerText = "-"; s.innerText = "";
+            }
+        }
+
+        // বয়স ক্যালকুলেটর
+        function calcAge() {
+            const dobInput = document.getElementById('dob').value;
+            if(!dobInput) { alert("জন্ম তারিখ দিন!"); return; }
+            const dob = new Date(dobInput);
+            const today = new Date();
+            
+            if (dob > today) { alert("ভবিষ্যতের তারিখ হবে না!"); return; }
+
+            let y = today.getFullYear() - dob.getFullYear();
+            let m = today.getMonth() - dob.getMonth();
+            let d = today.getDate() - dob.getDate();
+            
+            if (d < 0) {
+                const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                d += prevMonth.getDate();
+                m--;
+            }
+            if (m < 0) {
+                y--;
+                m += 12;
+            }
+            
+            document.getElementById('age-result').classList.remove('hidden');
+            document.getElementById('finalAgeText').innerHTML = `<i class="fa-solid fa-gift mr-2"></i> ${y} বছর, ${m} মাস, ${d} দিন`;
+        }
+    </script>
+</body>
+</html>
         <button onclick="showApp('bmi')" id="btn-bmi" class="nav-card p-3 rounded-2xl bg-white shadow-sm text-center text-gray-500">
             <i class="fa-solid fa-weight-scale block mb-1"></i>
             <span class="text-xs font-bold">BMI Pro</span>
