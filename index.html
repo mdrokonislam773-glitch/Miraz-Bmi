@@ -2,39 +2,147 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Miraz BMI Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miraz Digital Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #01875f; --bg-main: #f3f4f6; }
-        body { background-color: var(--bg-main); font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f8fafc; }
+        .nav-card { transition: all 0.3s ease; border: 1px solid transparent; }
+        .nav-card.active { border-color: #01875f; background: #ecfdf5; color: #01875f; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .app-container { display: none; }
+        .app-container.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="pb-20">
+
+    <header class="glass-header sticky top-0 z-50 border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-green-600 text-white w-8 h-8 flex items-center justify-center rounded-lg font-bold">M</div>
+                <h1 class="text-xl font-bold tracking-tight text-gray-800">MIRAZ<span class="text-green-600 font-black">.PRO</span></h1>
+            </div>
+            <span class="text-[10px] bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold uppercase tracking-widest">Digital Hub 2026</span>
+        </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto px-4 mt-6 grid grid-cols-3 gap-2">
+        <button onclick="showApp('home')" id="btn-home" class="nav-card active p-3 rounded-2xl bg-white shadow-sm text-center">
+            <i class="fa-solid fa-house block mb-1"></i>
+            <span class="text-xs font-bold">হোম</span>
+        </button>
+        <button onclick="showApp('bmi')" id="btn-bmi" class="nav-card p-3 rounded-2xl bg-white shadow-sm text-center text-gray-500">
+            <i class="fa-solid fa-weight-scale block mb-1"></i>
+            <span class="text-xs font-bold">BMI Pro</span>
+        </button>
+        <button onclick="showApp('age')" id="btn-age" class="nav-card p-3 rounded-2xl bg-white shadow-sm text-center text-gray-500">
+            <i class="fa-solid fa-calendar-days block mb-1"></i>
+            <span class="text-xs font-bold">Age Cal</span>
+        </button>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-4 mt-8">
         
-        /* ল্যাগ কমানোর জন্য ইনপুট স্টাইল */
-        .premium-input { 
-            width: 85px; background: #ffffff; border: 2px solid #e2e8f0; 
-            border-radius: 12px; padding: 10px; text-align: center; font-weight: bold;
-            outline: none; color: #000;
-            -webkit-appearance: none; appearance: none;
-            transition: none !important; 
-        }
-        
-        /* ফোকাস করলে বাড়তি কালার আসা বন্ধ */
-        .premium-input:focus { 
-            border-color: var(--primary); 
-            background-color: #ffffff; 
-            box-shadow: none !important; 
+        <div id="app-home" class="app-container active text-center">
+            <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+                <div class="w-24 h-24 bg-green-100 text-green-600 rounded-full mx-auto flex items-center justify-center mb-4 text-4xl font-black shadow-inner">M</div>
+                <h2 class="text-2xl font-bold text-gray-800">স্বাগতম, আমি মিরাজ</h2>
+                <p class="text-gray-500 mt-2 text-sm leading-relaxed">আমার ডিজিটাল প্রজেক্টগুলো এখানে এক্সপ্লোর করুন। আমি একজন প্রযুক্তি এবং কৃষি নিয়ে কাজ করতে আগ্রহী মানুষ।</p>
+                <div class="mt-6 flex justify-center gap-4">
+                    <a href="#" class="bg-gray-800 text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider">Contact</a>
+                    <a href="https://github.com/mdrokonislam773-glitch" class="border border-gray-300 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider">GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="app-bmi" class="app-container bg-white p-4 rounded-3xl shadow-lg">
+            <h3 class="text-lg font-bold mb-4 text-green-700"><i class="fa-solid fa-heart-pulse mr-2"></i>BMI ক্যালকুলেটর</h3>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 mb-1">ওজন (KG)</label>
+                    <input type="number" id="w" oninput="calcBMI()" placeholder="0" class="w-full p-4 bg-gray-50 rounded-2xl font-bold outline-none border-2 border-transparent focus:border-green-500 transition">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 mb-1">উচ্চতা (CM)</label>
+                    <input type="number" id="h" oninput="calcBMI()" placeholder="0" class="w-full p-4 bg-gray-50 rounded-2xl font-bold outline-none border-2 border-transparent focus:border-green-500 transition">
+                </div>
+            </div>
+            <div id="bmi-result-box" class="hidden p-6 rounded-2xl text-center bg-green-50 border border-green-100">
+                <p class="text-xs font-bold text-green-600 uppercase tracking-widest mb-1">আপনার BMI স্কোর</p>
+                <h4 id="bmi-score" class="text-4xl font-black text-green-700">0</h4>
+                <p id="bmi-status" class="text-sm font-bold mt-2 text-green-800"></p>
+            </div>
+        </div>
+
+        <div id="app-age" class="app-container bg-white p-6 rounded-3xl shadow-lg text-center">
+            <h3 class="text-lg font-bold mb-4 text-blue-700"><i class="fa-solid fa-cake-candles mr-2"></i>বয়স ক্যালকুলেটর</h3>
+            <label class="block text-[10px] font-bold text-gray-400 mb-2 uppercase">জন্ম তারিখ সিলেক্ট করুন</label>
+            <input type="date" id="dob" class="w-full p-4 bg-gray-50 rounded-2xl font-bold outline-none border-2 border-transparent focus:border-blue-500 mb-6">
+            <button onclick="calcAge()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:shadow-lg transition">হিসাব করুন</button>
+            <div id="age-result" class="mt-6 text-blue-600 font-bold text-lg"></div>
+        </div>
+
+    </main>
+
+    <footer class="mt-12 text-center pb-10">
+        <p class="text-[10px] text-gray-400 uppercase font-black tracking-widest mb-1">Developed By</p>
+        <h3 class="text-xl font-black text-gray-800 italic">MIRAZ</h3>
+    </footer>
+
+    <script>
+        function showApp(appName) {
+            // সকল অ্যাপ লুকান
+            document.querySelectorAll('.app-container').forEach(app => app.classList.remove('active'));
+            // বাটনের স্টাইল রিমুভ করুন
+            document.querySelectorAll('.nav-card').forEach(btn => {
+                btn.classList.remove('active', 'bg-green-50', 'text-green-600');
+                btn.classList.add('text-gray-500', 'bg-white');
+            });
+
+            // কাঙ্ক্ষিত অ্যাপ দেখান
+            document.getElementById('app-' + appName).classList.add('active');
+            document.getElementById('btn-' + appName).classList.add('active');
         }
 
-        .premium-table { 
-            width: 100%; border-collapse: separate; border-spacing: 0; 
-            background: #fff; border-radius: 20px; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #e2e8f0;
+        // BMI Calculation
+        function calcBMI() {
+            const w = document.getElementById('w').value;
+            const h = document.getElementById('h').value;
+            const resBox = document.getElementById('bmi-result-box');
+            
+            if (w > 0 && h > 0) {
+                resBox.classList.remove('hidden');
+                const bmi = (w / ((h/100)*(h/100))).toFixed(1);
+                document.getElementById('bmi-score').innerText = bmi;
+                let status = "";
+                if(bmi < 18.5) status = "স্বল্প ওজন (Underweight)";
+                else if(bmi < 25) status = "আদর্শ ওজন (Normal)";
+                else if(bmi < 30) status = "অতিরিক্ত ওজন (Overweight)";
+                else status = "স্থূলতা (Obese)";
+                document.getElementById('bmi-status').innerText = status;
+            }
         }
-        .premium-table th, .premium-table td { border-bottom: 1px solid #f1f5f9; padding: 12px 8px; text-align: center; }
-        .premium-table th { background-color: #fff; position: sticky; top: 0; z-index: 10; font-size: 11px; font-weight: 800; border-bottom: 2px solid #e2e8f0; }
 
-        .glass-header { 
-            background: #fff; border-bottom: 1px solid #e2e8f0; 
+        // Age Calculation
+        function calcAge() {
+            const dob = new Date(document.getElementById('dob').value);
+            const today = new Date();
+            if (dob > today || isNaN(dob)) {
+                alert("সঠিক তারিখ দিন"); return;
+            }
+            let years = today.getFullYear() - dob.getFullYear();
+            let months = today.getMonth() - dob.getMonth();
+            let days = today.getDate() - dob.getDate();
+            if (days < 0) { months--; days += 30; }
+            if (months < 0) { years--; months += 12; }
+            document.getElementById('age-result').innerHTML = `আপনার বয়স: ${years} বছর, ${months} মাস, ${days} দিন।`;
+        }
+    </script>
+</body>
+</html>
             position: sticky; top: 0; z-index: 100; height: 70px; display: flex; align-items: center; padding: 0 20px;
         }
 
