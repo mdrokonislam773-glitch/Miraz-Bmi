@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Miraz BMI Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --primary: #01875f; --bg-main: #f3f4f6; }
+        body { background-color: var(--bg-main); font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        /* ল্যাগ কমানোর জন্য ইনপুট স্টাইল */
+        .premium-input { 
+            width: 85px; background: #ffffff; border: 2px solid #e2e8f0; 
+            border-radius: 12px; padding: 10px; text-align: center; font-weight: bold;
+            outline: none; color: #000;
+            -webkit-appearance: none; appearance: none;
+            transition: none !important; 
+        }
+        
+        /* ফোকাস করলে বাড়তি কালার আসা বন্ধ */
+        .premium-input:focus { 
+            border-color: var(--primary); 
+            background-color: #ffffff; 
+            box-shadow: none !important; 
+        }
+
+        .premium-table { 
+            width: 100%; border-collapse: separate; border-spacing: 0; 
+            background: #fff; border-radius: 20px; overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #e2e8f0;
+        }
+        .premium-table th, .premium-table td { border-bottom: 1px solid #f1f5f9; padding: 12px 8px; text-align: center; }
+        .premium-table th { background-color: #fff; position: sticky; top: 0; z-index: 10; font-size: 11px; font-weight: 800; border-bottom: 2px solid #e2e8f0; }
+
+        .glass-header { 
+            background: #fff; border-bottom: 1px solid #e2e8f0; 
+            position: sticky; top: 0; z-index: 100; height: 70px; display: flex; align-items: center; padding: 0 20px;
+        }
+
+        #guideBox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
+        .guide-content { background: white; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; }
+        
+        .miraz-signature { font-size: 24px; font-weight: 900; color: var(--primary); font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <div class="glass-header">
+        <div class="flex items-center justify-between w-full max-w-7xl mx-auto">
+            <div class="flex items-center gap-3">
+                <div class="bg-black text-white w-10 h-10 flex items-center justify-center rounded-xl font-black italic text-2xl">M</div>
+                <h1 class="font-extrabold text-lg tracking-tighter uppercase">Miraz <span class="text-green-700">BMI</span> Pro</h1>
+            </div>
+            <button onclick="toggleGuide()" class="text-[10px] font-bold border border-gray-300 px-4 py-2 rounded-lg">নির্দেশনা</button>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-2 mt-6">
+        <div class="overflow-x-auto p-1">
+            <table class="premium-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="text-left">নাম</th>
+                        <th>ওজন (kg)</th>
+                        <th>উচ্চতা (cm)</th>
+                        <th>BMI</th>
+                    </tr>
+                </thead>
+                <tbody id="mirazTable"></tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-10 p-8 bg-white rounded-t-3xl border-t">
+            <p class="text-gray-400 text-[10px] uppercase font-bold tracking-widest">Developed By</p>
+            <h2 class="miraz-signature uppercase">Miraz</h2>
+            <p class="text-[9px] text-gray-400 mt-2 font-bold">SMART HEALTH GUIDE | 2026</p>
+        </div>
+    </div>
+
+    <div id="guideBox" onclick="toggleGuide()">
+        <div class="guide-content" onclick="event.stopPropagation()">
+            <h2 class="text-xl font-black mb-2">সঠিক নিয়ম</h2>
+            <p class="text-sm text-gray-500 mb-6">ওজন (kg) এবং উচ্চতা (cm) ঘরে সঠিক মান দিলে অটোমেটিক BMI হিসাব হবে।</p>
+            <button onclick="toggleGuide()" class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition">বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <script>
+        const table = document.getElementById('mirazTable');
+        let htmlRows = '';
+        
+        for (let i = 1; i <= 60; i++) {
+            htmlRows += `
+                <tr>
+                    <td class="text-gray-400 text-xs">${i}</td>
+                    <td class="text-left text-sm font-semibold">ব্যক্তি ${i}</td>
+                    <td><input type="number" id="w${i}" class="premium-input" oninput="calc(${i})" placeholder="0"></td>
+                    <td><input type="number" id="h${i}" class="premium-input" oninput="calc(${i})" placeholder="0"></td>
+                    <td class="font-bold">
+                        <span id="r${i}" class="text-blue-600 text-lg">-</span><br>
+                        <span id="s${i}" class="text-[9px] uppercase font-black"></span>
+                    </td>
+                </tr>`;
+        }
+        table.innerHTML = htmlRows;
+
+        function calc(i) {
+            const w = document.getElementById('w'+i).value;
+            const h = document.getElementById('h'+i).value;
+            const r = document.getElementById('r'+i);
+            const s = document.getElementById('s'+i);
+
+            if (w > 0 && h > 0) {
+                const bmi = (w / ((h/100)*(h/100))).toFixed(2);
+                r.innerText = bmi;
+                
+                if (bmi < 18.5) { 
+                    s.innerText = "Underweight"; s.style.color = "#f39c12"; 
+                } else if (bmi < 25) { 
+                    s.innerText = "Normal"; s.style.color = "#27ae60"; 
+                } else if (bmi < 30) { 
+                    s.innerText = "Overweight"; s.style.color = "#e67e22"; 
+                } else { 
+                    s.innerText = "Obese"; s.style.color = "#c0392b"; 
+                }
+            } else {
+                r.innerText = "-"; 
+                s.innerText = "";
+            }
+        }
+
+        function toggleGuide() {
+            const g = document.getElementById('guideBox');
+            g.style.display = (g.style.display === 'flex') ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>
