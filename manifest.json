@@ -1,21 +1,20 @@
 {
   "name": "Miraz Pro Digital Hub",
-  "short_name": "Miraz Pro",
-  "description": "Smart BMI and Age Calculator by Miraz",
-  "start_url": "index.html",
+  "short_name": "MirazPro",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#FFD700",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://i.ibb.co/vzN8m6F/miraz-pro-logo.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/599/599502.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://i.ibb.co/vzN8m6F/miraz-pro-logo.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/599/599502.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
