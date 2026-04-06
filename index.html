@@ -1,157 +1,156 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Miraz Pro Digital</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#FFD700">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
-        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f3f4f6; }
-        .nav-card.active { background: #01875f; color: white; transform: scale(1.05); }
-        .app-container { display: none; }
-        .app-container.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .m-logo-circle { width: 80px; height: 80px; background: #01875f; color: white; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 900; border-radius: 24px; margin: 0 auto 15px; border: 4px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); font-style: italic; }
-        .status-badge { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; color: white; display: none; margin-top: 4px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miraz Digital Hub</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#01875f">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body { font-family: sans-serif; }
+.nav-card.active { background:#01875f; color:white; }
+.app-container { display:none; }
+.app-container.active { display:block; }
+</style>
 </head>
-<body class="pb-10">
 
-    <div id="install-banner" class="bg-[#FFD700] p-4 shadow-lg sticky top-0 z-[100] border-b-2 border-white cursor-pointer" onclick="triggerInstall()">
-        <div class="flex justify-between items-center max-w-md mx-auto">
-            <div class="flex items-center gap-3">
-                <div class="bg-white p-2 rounded-full animate-bounce"><i class="fa-solid fa-download text-yellow-600"></i></div>
-                <div class="text-left">
-                    <p class="font-black text-gray-900 text-sm">অ্যাপটি ডাউনলোড করুন</p>
-                    <p class="text-[10px] font-bold text-gray-700">এটি অফলাইনেও কাজ করবে</p>
-                </div>
-            </div>
-            <button class="bg-gray-900 text-white px-5 py-2 rounded-full text-xs font-black shadow-md">INSTALL</button>
-        </div>
-    </div>
+<body class="bg-gray-100">
 
-    <header class="bg-white p-4 flex justify-between items-center border-b">
-        <div class="flex items-center gap-2">
-            <div class="bg-green-600 text-white w-8 h-8 flex items-center justify-center rounded-lg font-black italic">M</div>
-            <h1 class="text-lg font-black italic">MIRAZ<span class="text-green-600">.PRO</span></h1>
-        </div>
-        <i class="fa-solid fa-circle-check text-green-500"></i>
-    </header>
+<header class="p-4 bg-white shadow flex justify-between">
+<h1 class="font-bold text-lg">MIRAZ PRO</h1>
+</header>
 
-    <div class="px-4 mt-6 grid grid-cols-3 gap-3">
-        <button onclick="showApp('home')" id="btn-home" class="nav-card active p-4 rounded-2xl bg-white shadow-sm text-center transition-all"><i class="fa-solid fa-house block mb-1"></i><span class="text-xs font-bold">হোম</span></button>
-        <button onclick="showApp('bmi')" id="btn-bmi" class="nav-card p-4 rounded-2xl bg-white shadow-sm text-center transition-all"><i class="fa-solid fa-weight-scale block mb-1"></i><span class="text-xs font-bold">BMI Pro</span></button>
-        <button onclick="showApp('age')" id="btn-age" class="nav-card p-4 rounded-2xl bg-white shadow-sm text-center transition-all"><i class="fa-solid fa-calendar-day block mb-1"></i><span class="text-xs font-bold">Age Cal</span></button>
-    </div>
+<div id="install-banner" style="display:none;" class="p-3">
+<button onclick="installPWA()" class="bg-green-600 text-white p-3 rounded">Install App</button>
+</div>
 
-    <main class="px-4 mt-6">
-        <div id="app-home" class="app-container active">
-            <div class="bg-white p-10 rounded-[35px] shadow-xl text-center border-b-4 border-green-500">
-                <div class="m-logo-circle">M</div>
-                <h2 class="text-2xl font-black text-gray-800">MIRAZ DIGITAL HUB</h2>
-                <p class="text-gray-400 mt-2 text-sm italic font-bold">SMART OFFLINE SOLUTION</p>
-            </div>
-        </div>
+<div class="grid grid-cols-3 gap-2 p-3">
+<button onclick="showApp('home')" id="btn-home" class="nav-card active p-2 bg-white">Home</button>
+<button onclick="showApp('bmi')" id="btn-bmi" class="nav-card p-2 bg-white">BMI</button>
+<button onclick="showApp('age')" id="btn-age" class="nav-card p-2 bg-white">Age</button>
+</div>
 
-        <div id="app-bmi" class="app-container">
-            <div class="bg-white p-4 rounded-3xl shadow-lg">
-                <h3 class="font-bold text-gray-800 mb-4 border-b pb-2">Health Record Status</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-center">
-                        <thead><tr class="text-[10px] text-gray-400"><th class="pb-2">ওজন (KG)</th><th class="pb-2">উচ্চতা (CM)</th><th class="pb-2">BMI ও অবস্থা</th></tr></thead>
-                        <tbody id="bmiTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+<!-- HOME -->
+<div id="app-home" class="app-container active p-5">
+<h2>স্বাগতম Miraz App</h2>
+</div>
 
-        <div id="app-age" class="app-container">
-            <div class="bg-white p-8 rounded-[35px] shadow-xl text-center">
-                <h3 class="text-xl font-black text-gray-800 mb-6 uppercase">Age Calculator</h3>
-                <div class="grid grid-cols-3 gap-3 mb-6">
-                    <div><span class="text-[10px] font-bold text-gray-400 block mb-1 uppercase">Day</span><input type="number" id="d" placeholder="DD" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
-                    <div><span class="text-[10px] font-bold text-gray-400 block mb-1 uppercase">Month</span><input type="number" id="m" placeholder="MM" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
-                    <div><span class="text-[10px] font-bold text-gray-400 block mb-1 uppercase">Year</span><input type="number" id="y" placeholder="YYYY" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
-                </div>
-                <button onclick="getAge()" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-black shadow-lg">CALCULATE</button>
-                <div id="age-box" class="mt-8 hidden p-6 bg-green-50 rounded-3xl border border-green-100">
-                    <p id="age-text" class="text-green-800 font-bold mb-4"></p>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="bg-white p-3 rounded-2xl shadow-sm"><p class="text-[9px] text-gray-400">YEAR</p><p id="ry" class="text-xl font-black text-green-600">0</p></div>
-                        <div class="bg-white p-3 rounded-2xl shadow-sm"><p class="text-[9px] text-gray-400">MONTH</p><p id="rm" class="text-xl font-black text-green-600">0</p></div>
-                        <div class="bg-white p-3 rounded-2xl shadow-sm"><p class="text-[9px] text-gray-400">DAY</p><p id="rd" class="text-xl font-black text-green-600">0</p></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+<!-- BMI -->
+<div id="app-bmi" class="app-container p-3">
+<table border="1" width="100%">
+<thead><tr><th>#</th><th>Weight</th><th>Height</th><th>BMI</th></tr></thead>
+<tbody id="bmiTableBody"></tbody>
+</table>
+</div>
 
-    <script>
-        function showApp(id) {
-            document.querySelectorAll('.app-container').forEach(e => e.classList.remove('active'));
-            document.querySelectorAll('.nav-card').forEach(e => e.classList.remove('active'));
-            document.getElementById('app-'+id).classList.add('active');
-            document.getElementById('btn-'+id).classList.add('active');
-        }
+<!-- AGE -->
+<div id="app-age" class="app-container p-5">
+<input type="date" id="dob" class="border p-2">
+<button onclick="calcAge()" class="bg-blue-500 text-white p-2">Calculate</button>
+<p id="result"></p>
+</div>
 
-        const tbody = document.getElementById('bmiTableBody');
-        for (let i = 1; i <= 15; i++) {
-            tbody.innerHTML += `
-                <tr class="border-b"><td class="py-4"><input type="number" id="w${i}" oninput="calcBMI(${i})" class="w-14 bg-gray-50 p-2 rounded-lg text-center font-bold outline-none" placeholder="0"></td><td class="py-4"><input type="number" id="h${i}" oninput="calcBMI(${i})" class="w-14 bg-gray-50 p-2 rounded-lg text-center font-bold outline-none" placeholder="0"></td><td class="py-4 text-center"><span id="res${i}" class="font-black text-xs text-gray-800">-</span><br><span id="st${i}" class="status-badge"></span></td></tr>`;
-        }
+<!-- DARK BUTTON -->
+<button onclick="toggleDark()" style="position:fixed;bottom:20px;right:20px;">🌙</button>
 
-        function calcBMI(i) {
-            const w = document.getElementById('w'+i).value, h = document.getElementById('h'+i).value;
-            const res = document.getElementById('res'+i), st = document.getElementById('st'+i);
-            if (w > 0 && h > 0) {
-                const bmi = (w / ((h/100)*(h/100))).toFixed(1);
-                res.innerText = bmi; st.style.display = "inline-block";
-                if (bmi < 18.5) { st.innerText="কম ওজন"; st.style.background="#f59e0b"; }
-                else if (bmi <= 24.9) { st.innerText="স্বাভাবিক"; st.style.background="#10b981"; }
-                else if (bmi <= 29.9) { st.innerText="বেশি ওজন"; st.style.background="#ef4444"; }
-                else { st.innerText="মৃত্যু ঝুঁকি"; st.style.background="#7f1d1d"; }
-            } else { res.innerText="-"; st.style.display="none"; }
-        }
+<script>
 
-        function getAge() {
-            const d1 = parseInt(document.getElementById('d').value), m1 = parseInt(document.getElementById('m').value), y1 = parseInt(document.getElementById('y').value);
-            if(!d1 || !m1 || !y1) return alert("তারিখ দিন");
-            const today = new Date();
-            let d2 = today.getDate(), m2 = today.getMonth() + 1, y2 = today.getFullYear();
-            let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            if (d1 > d2) { d2 += month[m2 - 1]; m2--; }
-            if (m1 > m2) { m2 += 12; y2--; }
-            document.getElementById('age-box').classList.remove('hidden');
-            document.getElementById('ry').innerText = y2-y1; document.getElementById('rm').innerText = m2-m1; document.getElementById('rd').innerText = d2-d1;
-            document.getElementById('age-text').innerText = `আপনার বয়স: ${y2-y1} বছর ${m2-m1} মাস ${d2-d1} দিন`;
-        }
+// Service Worker
+if ('serviceWorker' in navigator) {
+window.addEventListener('load', () => {
+navigator.serviceWorker.register('./sw.js');
+});
+}
 
-        // --- PWA Download Logic ---
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('install-banner').style.display = "block";
-        });
+// Install
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+e.preventDefault();
+deferredPrompt = e;
+document.getElementById('install-banner').style.display='block';
+});
 
-        async function triggerInstall() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') document.getElementById('install-banner').style.display = "none";
-                deferredPrompt = null;
-            } else {
-                alert("আপনার ব্রাউজারের থ্রি-ডট মেনু থেকে 'Install App' এ ক্লিক করুন।");
-            }
-        }
+function installPWA(){
+deferredPrompt.prompt();
+}
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js');
-        }
-    </script>
+window.addEventListener('appinstalled', ()=>{
+document.getElementById('install-banner').style.display='none';
+});
+
+// Navigation
+function showApp(app){
+document.querySelectorAll('.app-container').forEach(a=>a.classList.remove('active'));
+document.getElementById('app-'+app).classList.add('active');
+}
+
+// BMI Table
+let rows="";
+for(let i=1;i<=20;i++){
+rows+=`<tr>
+<td>${i}</td>
+<td><input id="w${i}" oninput="calc(${i})"></td>
+<td><input id="h${i}" oninput="calc(${i})"></td>
+<td id="r${i}">-</td>
+</tr>`;
+}
+bmiTableBody.innerHTML=rows;
+
+// Save
+function save(){
+let data=[];
+for(let i=1;i<=20;i++){
+data.push({
+w:document.getElementById('w'+i).value,
+h:document.getElementById('h'+i).value
+});
+}
+localStorage.setItem("bmi",JSON.stringify(data));
+}
+
+// Load
+function load(){
+let d=JSON.parse(localStorage.getItem("bmi"));
+if(!d)return;
+d.forEach((v,i)=>{
+let x=i+1;
+document.getElementById('w'+x).value=v.w;
+document.getElementById('h'+x).value=v.h;
+calc(x);
+});
+}
+window.onload=load;
+
+// BMI
+function calc(i){
+let w=document.getElementById('w'+i).value;
+let h=document.getElementById('h'+i).value;
+if(w>0&&h>0){
+let b=(w/((h/100)*(h/100))).toFixed(2);
+document.getElementById('r'+i).innerText=b;
+save();
+}
+}
+
+// Age
+function calcAge(){
+let d=new Date(document.getElementById('dob').value);
+let t=new Date();
+let y=t.getFullYear()-d.getFullYear();
+document.getElementById('result').innerText=y+" বছর";
+}
+
+// Dark
+function toggleDark(){
+document.body.classList.toggle("bg-black");
+document.body.classList.toggle("text-white");
+}
+
+</script>
+
 </body>
 </html>
