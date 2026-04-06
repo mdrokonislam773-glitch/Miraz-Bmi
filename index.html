@@ -3,76 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Miraz Pro BD</title>
+    <title>Miraz Pro Digital</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FFD700">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
-        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f0f2f5; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f3f4f6; }
         .nav-card.active { background: #01875f; color: white; transform: scale(1.05); }
         .app-container { display: none; }
-        .app-container.active { display: block; animation: fadeIn 0.3s ease-in; }
+        .app-container.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .m-logo-circle { width: 80px; height: 80px; background: #01875f; color: white; display: flex; align-items: center; justify-content: center; font-size: 45px; font-weight: 900; border-radius: 24px; margin: 0 auto 20px; border: 5px solid white; box-shadow: 0 15px 30px rgba(1,135,95,0.2); font-style: italic; }
-        .status-badge { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; color: white; display: none; }
+        .m-logo-circle { width: 80px; height: 80px; background: #01875f; color: white; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 900; border-radius: 24px; margin: 0 auto 15px; border: 4px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); font-style: italic; }
+        .status-badge { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; color: white; display: none; margin-top: 4px; }
     </style>
 </head>
 <body class="pb-10">
 
-    <div id="install-banner" class="bg-[#FFD700] p-4 shadow-md sticky top-0 z-[100] border-b-2 border-white cursor-pointer" onclick="triggerInstall()">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
+    <div id="install-banner" class="bg-[#FFD700] p-4 shadow-lg sticky top-0 z-[100] border-b-2 border-white cursor-pointer" onclick="triggerInstall()">
+        <div class="flex justify-between items-center max-w-md mx-auto">
             <div class="flex items-center gap-3">
-                <div class="bg-white p-2 rounded-full animate-bounce">
-                    <i class="fa-solid fa-download text-yellow-600"></i>
-                </div>
-                <div class="leading-tight text-left">
+                <div class="bg-white p-2 rounded-full animate-bounce"><i class="fa-solid fa-download text-yellow-600"></i></div>
+                <div class="text-left">
                     <p class="font-black text-gray-900 text-sm">অ্যাপটি ডাউনলোড করুন</p>
                     <p class="text-[10px] font-bold text-gray-700">এটি অফলাইনেও কাজ করবে</p>
                 </div>
             </div>
-            <button class="bg-gray-900 text-white px-4 py-1.5 rounded-full text-[11px] font-bold shadow-lg">ডাউনলোড</button>
+            <button class="bg-gray-900 text-white px-5 py-2 rounded-full text-xs font-black shadow-md">INSTALL</button>
         </div>
     </div>
 
-    <header class="bg-white border-b p-4 flex items-center justify-between">
+    <header class="bg-white p-4 flex justify-between items-center border-b">
         <div class="flex items-center gap-2">
             <div class="bg-green-600 text-white w-8 h-8 flex items-center justify-center rounded-lg font-black italic">M</div>
-            <h1 class="text-lg font-black italic text-gray-800">MIRAZ<span class="text-green-600">.PRO</span></h1>
+            <h1 class="text-lg font-black italic">MIRAZ<span class="text-green-600">.PRO</span></h1>
         </div>
-        <i class="fa-solid fa-shield-check text-green-600"></i>
+        <i class="fa-solid fa-circle-check text-green-500"></i>
     </header>
 
     <div class="px-4 mt-6 grid grid-cols-3 gap-3">
-        <button onclick="showApp('home')" id="btn-home" class="nav-card active p-4 rounded-2xl bg-white shadow-sm text-center">
-            <i class="fa-solid fa-house block mb-1"></i><span class="text-xs font-bold">হোম</span>
-        </button>
-        <button onclick="showApp('bmi')" id="btn-bmi" class="nav-card p-4 rounded-2xl bg-white shadow-sm text-center">
-            <i class="fa-solid fa-weight-scale block mb-1"></i><span class="text-xs font-bold">BMI Pro</span>
-        </button>
-        <button onclick="showApp('age')" id="btn-age" class="nav-card p-4 rounded-2xl bg-white shadow-sm text-center">
-            <i class="fa-solid fa-calendar-days block mb-1"></i><span class="text-xs font-bold">Age Cal</span>
-        </button>
+        <button onclick="showApp('home')" id="btn-home" class="nav-card active p-4 rounded-2xl bg-white shadow-sm text-center transition-all"><i class="fa-solid fa-house block mb-1"></i><span class="text-xs font-bold">হোম</span></button>
+        <button onclick="showApp('bmi')" id="btn-bmi" class="nav-card p-4 rounded-2xl bg-white shadow-sm text-center transition-all"><i class="fa-solid fa-weight-scale block mb-1"></i><span class="text-xs font-bold">BMI Pro</span></button>
+        <button onclick="showApp('age')" id="btn-age" class="nav-card p-4 rounded-2xl bg-white shadow-sm text-center transition-all"><i class="fa-solid fa-calendar-day block mb-1"></i><span class="text-xs font-bold">Age Cal</span></button>
     </div>
 
     <main class="px-4 mt-6">
         <div id="app-home" class="app-container active">
-            <div class="bg-white p-12 rounded-[40px] shadow-xl text-center">
+            <div class="bg-white p-10 rounded-[35px] shadow-xl text-center border-b-4 border-green-500">
                 <div class="m-logo-circle">M</div>
-                <h2 class="text-2xl font-black text-gray-800">MIRAZ DIGITAL</h2>
-                <p class="text-gray-400 mt-2 text-sm italic font-bold tracking-widest">SMART OFFLINE HUB</p>
+                <h2 class="text-2xl font-black text-gray-800">MIRAZ DIGITAL HUB</h2>
+                <p class="text-gray-400 mt-2 text-sm italic font-bold">SMART OFFLINE SOLUTION</p>
             </div>
         </div>
 
         <div id="app-bmi" class="app-container">
-            <div class="bg-white p-5 rounded-3xl shadow-lg">
-                <h3 class="font-bold text-gray-800 mb-4 border-b pb-2 italic">BMI Health Status</h3>
+            <div class="bg-white p-4 rounded-3xl shadow-lg">
+                <h3 class="font-bold text-gray-800 mb-4 border-b pb-2">Health Record Status</h3>
                 <div class="overflow-x-auto">
                     <table class="w-full text-center">
-                        <thead>
-                            <tr class="text-[10px] text-gray-400"><th class="pb-2">ওজন (KG)</th><th class="pb-2">উচ্চতা (CM)</th><th class="pb-2">BMI ও অবস্থা</th></tr>
-                        </thead>
+                        <thead><tr class="text-[10px] text-gray-400"><th class="pb-2">ওজন (KG)</th><th class="pb-2">উচ্চতা (CM)</th><th class="pb-2">BMI ও অবস্থা</th></tr></thead>
                         <tbody id="bmiTableBody"></tbody>
                     </table>
                 </div>
@@ -80,7 +70,7 @@
         </div>
 
         <div id="app-age" class="app-container">
-            <div class="bg-white p-8 rounded-[40px] shadow-xl text-center">
+            <div class="bg-white p-8 rounded-[35px] shadow-xl text-center">
                 <h3 class="text-xl font-black text-gray-800 mb-6 uppercase">Age Calculator</h3>
                 <div class="grid grid-cols-3 gap-3 mb-6">
                     <div><span class="text-[10px] font-bold text-gray-400 block mb-1 uppercase">Day</span><input type="number" id="d" placeholder="DD" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
@@ -91,9 +81,9 @@
                 <div id="age-box" class="mt-8 hidden p-6 bg-green-50 rounded-3xl border border-green-100">
                     <p id="age-text" class="text-green-800 font-bold mb-4"></p>
                     <div class="grid grid-cols-3 gap-2">
-                        <div class="bg-white p-3 rounded-2xl"><p class="text-[9px] text-gray-400 font-bold">YEAR</p><p id="ry" class="text-xl font-black text-green-600">0</p></div>
-                        <div class="bg-white p-3 rounded-2xl"><p class="text-[9px] text-gray-400 font-bold">MONTH</p><p id="rm" class="text-xl font-black text-green-600">0</p></div>
-                        <div class="bg-white p-3 rounded-2xl"><p class="text-[9px] text-gray-400 font-bold">DAY</p><p id="rd" class="text-xl font-black text-green-600">0</p></div>
+                        <div class="bg-white p-3 rounded-2xl shadow-sm"><p class="text-[9px] text-gray-400">YEAR</p><p id="ry" class="text-xl font-black text-green-600">0</p></div>
+                        <div class="bg-white p-3 rounded-2xl shadow-sm"><p class="text-[9px] text-gray-400">MONTH</p><p id="rm" class="text-xl font-black text-green-600">0</p></div>
+                        <div class="bg-white p-3 rounded-2xl shadow-sm"><p class="text-[9px] text-gray-400">DAY</p><p id="rd" class="text-xl font-black text-green-600">0</p></div>
                     </div>
                 </div>
             </div>
@@ -111,11 +101,7 @@
         const tbody = document.getElementById('bmiTableBody');
         for (let i = 1; i <= 15; i++) {
             tbody.innerHTML += `
-                <tr class="border-b">
-                    <td class="py-4"><input type="number" id="w${i}" oninput="calcBMI(${i})" class="w-14 bg-gray-50 p-2 rounded-lg text-center font-bold" placeholder="0"></td>
-                    <td class="py-4"><input type="number" id="h${i}" oninput="calcBMI(${i})" class="w-14 bg-gray-50 p-2 rounded-lg text-center font-bold" placeholder="0"></td>
-                    <td class="py-4 text-center"><span id="res${i}" class="font-black text-xs">-</span><br><span id="st${i}" class="status-badge"></span></td>
-                </tr>`;
+                <tr class="border-b"><td class="py-4"><input type="number" id="w${i}" oninput="calcBMI(${i})" class="w-14 bg-gray-50 p-2 rounded-lg text-center font-bold outline-none" placeholder="0"></td><td class="py-4"><input type="number" id="h${i}" oninput="calcBMI(${i})" class="w-14 bg-gray-50 p-2 rounded-lg text-center font-bold outline-none" placeholder="0"></td><td class="py-4 text-center"><span id="res${i}" class="font-black text-xs text-gray-800">-</span><br><span id="st${i}" class="status-badge"></span></td></tr>`;
         }
 
         function calcBMI(i) {
@@ -133,7 +119,7 @@
 
         function getAge() {
             const d1 = parseInt(document.getElementById('d').value), m1 = parseInt(document.getElementById('m').value), y1 = parseInt(document.getElementById('y').value);
-            if(!d1 || !m1 || !y1) return alert("তারিখ ঠিকভাবে দিন");
+            if(!d1 || !m1 || !y1) return alert("তারিখ দিন");
             const today = new Date();
             let d2 = today.getDate(), m2 = today.getMonth() + 1, y2 = today.getFullYear();
             let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -156,17 +142,15 @@
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    document.getElementById('install-banner').style.display = "none";
-                }
+                if (outcome === 'accepted') document.getElementById('install-banner').style.display = "none";
                 deferredPrompt = null;
             } else {
-                alert("ব্রাউজার মেনু থেকে 'Install App' অথবা 'Add to Home Screen' এ ক্লিক করুন।");
+                alert("আপনার ব্রাউজারের থ্রি-ডট মেনু থেকে 'Install App' এ ক্লিক করুন।");
             }
         }
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
+            navigator.serviceWorker.register('./sw.js');
         }
     </script>
 </body>
