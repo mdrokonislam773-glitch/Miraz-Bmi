@@ -15,14 +15,7 @@
         .app-container { display: none; }
         .app-container.active { display: block; animation: fadeIn 0.3s ease-in; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .m-logo-circle {
-            width: 80px; height: 80px; background: #01875f; color: white;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 45px; font-weight: 900; border-radius: 24px;
-            margin: 0 auto 20px; border: 5px solid white; font-style: italic;
-            box-shadow: 0 15px 30px rgba(1,135,95,0.2);
-        }
+        .m-logo-circle { width: 80px; height: 80px; background: #01875f; color: white; display: flex; align-items: center; justify-content: center; font-size: 45px; font-weight: 900; border-radius: 24px; margin: 0 auto 20px; border: 5px solid white; box-shadow: 0 15px 30px rgba(1,135,95,0.2); font-style: italic; }
         .status-badge { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; color: white; display: none; }
     </style>
 </head>
@@ -34,12 +27,12 @@
                 <div class="bg-white p-2 rounded-full animate-bounce">
                     <i class="fa-solid fa-download text-yellow-600"></i>
                 </div>
-                <div class="leading-tight">
+                <div class="leading-tight text-left">
                     <p class="font-black text-gray-900 text-sm">অ্যাপটি ডাউনলোড করুন</p>
                     <p class="text-[10px] font-bold text-gray-700">এটি অফলাইনেও কাজ করবে</p>
                 </div>
             </div>
-            <button class="bg-gray-900 text-white px-4 py-1.5 rounded-full text-[11px] font-bold">ডাউনলোড</button>
+            <button class="bg-gray-900 text-white px-4 py-1.5 rounded-full text-[11px] font-bold shadow-lg">ডাউনলোড</button>
         </div>
     </div>
 
@@ -67,20 +60,18 @@
         <div id="app-home" class="app-container active">
             <div class="bg-white p-12 rounded-[40px] shadow-xl text-center">
                 <div class="m-logo-circle">M</div>
-                <h2 class="text-2xl font-black text-gray-800 tracking-tight">MIRAZ DIGITAL</h2>
-                <p class="text-gray-400 mt-2 text-sm italic font-bold">Smart Offline Assistant</p>
+                <h2 class="text-2xl font-black text-gray-800">MIRAZ DIGITAL</h2>
+                <p class="text-gray-400 mt-2 text-sm italic font-bold tracking-widest">SMART OFFLINE HUB</p>
             </div>
         </div>
 
         <div id="app-bmi" class="app-container">
             <div class="bg-white p-5 rounded-3xl shadow-lg">
-                <h3 class="font-bold text-gray-800 mb-4 border-b pb-2 italic">Health Status List</h3>
+                <h3 class="font-bold text-gray-800 mb-4 border-b pb-2 italic">BMI Health Status</h3>
                 <div class="overflow-x-auto">
                     <table class="w-full text-center">
                         <thead>
-                            <tr class="text-[10px] text-gray-400">
-                                <th class="pb-2">ওজন (KG)</th><th class="pb-2">উচ্চতা (CM)</th><th class="pb-2">BMI ও অবস্থা</th>
-                            </tr>
+                            <tr class="text-[10px] text-gray-400"><th class="pb-2">ওজন (KG)</th><th class="pb-2">উচ্চতা (CM)</th><th class="pb-2">BMI ও অবস্থা</th></tr>
                         </thead>
                         <tbody id="bmiTableBody"></tbody>
                     </table>
@@ -90,19 +81,19 @@
 
         <div id="app-age" class="app-container">
             <div class="bg-white p-8 rounded-[40px] shadow-xl text-center">
-                <h3 class="text-xl font-black text-gray-800 mb-6 uppercase tracking-widest">Age Calculator</h3>
+                <h3 class="text-xl font-black text-gray-800 mb-6 uppercase">Age Calculator</h3>
                 <div class="grid grid-cols-3 gap-3 mb-6">
-                    <div><span class="text-[10px] font-bold text-gray-400 block mb-1">DAY</span><input type="number" id="d" placeholder="DD" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
-                    <div><span class="text-[10px] font-bold text-gray-400 block mb-1">MONTH</span><input type="number" id="m" placeholder="MM" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
-                    <div><span class="text-[10px] font-bold text-gray-400 block mb-1">YEAR</span><input type="number" id="y" placeholder="YYYY" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
+                    <div><span class="text-[10px] font-bold text-gray-400 block mb-1 uppercase">Day</span><input type="number" id="d" placeholder="DD" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
+                    <div><span class="text-[10px] font-bold text-gray-400 block mb-1 uppercase">Month</span><input type="number" id="m" placeholder="MM" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
+                    <div><span class="text-[10px] font-bold text-gray-400 block mb-1 uppercase">Year</span><input type="number" id="y" placeholder="YYYY" class="w-full p-4 bg-gray-100 rounded-2xl text-center font-bold outline-none border-2 border-transparent focus:border-green-500"></div>
                 </div>
-                <button onclick="getAge()" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-black shadow-lg active:scale-95 transition-all">CALCULATE</button>
+                <button onclick="getAge()" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-black shadow-lg">CALCULATE</button>
                 <div id="age-box" class="mt-8 hidden p-6 bg-green-50 rounded-3xl border border-green-100">
                     <p id="age-text" class="text-green-800 font-bold mb-4"></p>
                     <div class="grid grid-cols-3 gap-2">
-                        <div class="bg-white p-3 rounded-2xl shadow-sm"><p class="text-[9px] text-gray-400">YEAR</p><p id="ry" class="text-xl font-black text-green-600">0</p></div>
-                        <div class="bg-white p-3 rounded-2xl shadow-sm"><p class="text-[9px] text-gray-400">MONTH</p><p id="rm" class="text-xl font-black text-green-600">0</p></div>
-                        <div class="bg-white p-3 rounded-2xl shadow-sm"><p class="text-[9px] text-gray-400">DAY</p><p id="rd" class="text-xl font-black text-green-600">0</p></div>
+                        <div class="bg-white p-3 rounded-2xl"><p class="text-[9px] text-gray-400 font-bold">YEAR</p><p id="ry" class="text-xl font-black text-green-600">0</p></div>
+                        <div class="bg-white p-3 rounded-2xl"><p class="text-[9px] text-gray-400 font-bold">MONTH</p><p id="rm" class="text-xl font-black text-green-600">0</p></div>
+                        <div class="bg-white p-3 rounded-2xl"><p class="text-[9px] text-gray-400 font-bold">DAY</p><p id="rd" class="text-xl font-black text-green-600">0</p></div>
                     </div>
                 </div>
             </div>
@@ -142,7 +133,7 @@
 
         function getAge() {
             const d1 = parseInt(document.getElementById('d').value), m1 = parseInt(document.getElementById('m').value), y1 = parseInt(document.getElementById('y').value);
-            if(!d1 || !m1 || !y1) return alert("সঠিকভাবে লিখুন");
+            if(!d1 || !m1 || !y1) return alert("তারিখ ঠিকভাবে দিন");
             const today = new Date();
             let d2 = today.getDate(), m2 = today.getMonth() + 1, y2 = today.getFullYear();
             let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -150,16 +141,15 @@
             if (m1 > m2) { m2 += 12; y2--; }
             document.getElementById('age-box').classList.remove('hidden');
             document.getElementById('ry').innerText = y2-y1; document.getElementById('rm').innerText = m2-m1; document.getElementById('rd').innerText = d2-d1;
-            document.getElementById('age-text').innerText = `বয়স: ${y2-y1} বছর ${m2-m1} মাস ${d2-d1} দিন`;
+            document.getElementById('age-text').innerText = `আপনার বয়স: ${y2-y1} বছর ${m2-m1} মাস ${d2-d1} দিন`;
         }
 
-        // --- PWA ডাউনলোড লজিক ---
+        // --- PWA Download Logic ---
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // ব্যানারটি দেখান
-            document.getElementById('install-banner').classList.remove('hidden');
+            document.getElementById('install-banner').style.display = "block";
         });
 
         async function triggerInstall() {
@@ -167,16 +157,16 @@
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') {
-                    document.getElementById('install-banner').classList.add('hidden');
+                    document.getElementById('install-banner').style.display = "none";
                 }
                 deferredPrompt = null;
             } else {
-                alert("আপনার ব্রাউজারের সেটিংস থেকে 'Install App' অথবা 'Add to Home Screen' এ ক্লিক করুন।");
+                alert("ব্রাউজার মেনু থেকে 'Install App' অথবা 'Add to Home Screen' এ ক্লিক করুন।");
             }
         }
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+            navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
         }
     </script>
 </body>
