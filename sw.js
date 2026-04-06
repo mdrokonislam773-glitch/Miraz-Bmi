@@ -1,4 +1,4 @@
-const CACHE_NAME = 'miraz-pro-v25';
+const CACHE_NAME = 'miraz-pro-v50'; // ভার্সন নম্বর বাড়িয়ে দিলাম যাতে আপডেট হয়
 const assets = [
   './',
   './index.html',
@@ -8,20 +8,20 @@ const assets = [
   'https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap'
 ];
 
-// ১. ফাইলগুলো ফোনে সেভ করা (Install Event)
-self.addEventListener('install', (e) => {
-  e.waitUntil(
+// ১. ফাইলগুলো ফোনের মেমোরিতে জমা করা (Installation)
+self.addEventListener('install', (event) => {
+  event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('ফাইলগুলো ক্যাশ করা হচ্ছে...');
+      console.log('সব ফাইল অফলাইনের জন্য সেভ করা হচ্ছে...');
       return cache.addAll(assets);
     })
   );
-  self.skipWaiting(); // নতুন আপডেট সাথে সাথে কার্যকর হবে
+  self.skipWaiting(); 
 });
 
-// ২. পুরোনো ফাইল মুছে ফেলা (Activate Event)
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
+// ২. পুরোনো ক্যাশ ফাইল পরিষ্কার করা (Activation)
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
         keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
@@ -30,14 +30,14 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// ৩. অফলাইন মোডে ফাইল চালানো (Fetch Event)
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((res) => {
-      // যদি ক্যাশে ফাইল থাকে তবে সেটি দাও, নাহলে নেট থেকে নাও
-      return res || fetch(e.request).catch(() => {
-        // যদি একদম নেট না থাকে তবে হোম পেজ দেখাও
-        if (e.request.mode === 'navigate') {
+// ৩. ইন্টারনেট না থাকলেও মেমোরি থেকে ফাইল চালানো (Fetching)
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      // যদি মেমোরিতে ফাইল থাকে তবে সেটি দাও, নাহলে নেট থেকে নাও
+      return cachedResponse || fetch(event.request).catch(() => {
+        // যদি একদম নেট না থাকে এবং নেভিগেট করার চেষ্টা করে তবে হোম পেজ দাও
+        if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
       });
